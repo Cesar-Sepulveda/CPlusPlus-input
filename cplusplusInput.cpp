@@ -45,8 +45,8 @@ void deposit(string name, PERSON arr[], int n){
 }
 
 void readFile(string fileName, PERSON arr[], int n){
-  fstream myFile2;
-  myFile2.open(filename);
+  fstream myFile;
+  myFile.open(filename);
   string str1;
   string str2;
   string sName;
@@ -54,12 +54,12 @@ void readFile(string fileName, PERSON arr[], int n){
   string space;
 
   for(int i = 0; i < n; ++i){
-    myFile2 >> str1 >> str2;
+    myFile >> str1 >> str2;
     sName = str1 + " " + str2;
     strcpy(arr[n].name, sName.c_str());
-    myFile2 >> pay;
+    myFile >> pay;
     arr[n].balance = pay;
-    getline(myFile2, space);
+    getline(myFile, space);
   }
   myFile.close();
 }
@@ -79,16 +79,23 @@ int numOfLines(string filename){
   return count;
 }
 
-
+void NewCopy(string filename, PERSON arr[], int n){
+  fstream myFile;
+  myFile.open(filename);
+  for(int i = 0; i < n; ++i){
+    myFile << arr[i].name << arr[i].balance << endl;
+  }
+  myFile.close();
+}
 
 int main(){
   int n;
   string filename;
   string name;
-  cout << "Enter the filename: " << endl; 
+  cout << "Enter the filename: " << endl;
   cin >> filename;
   n = nomOfLines(filename);
-  
+
   PERSON arr[n];
   readFile("data.txt", arr, n);
   display(arr, n);
@@ -96,6 +103,8 @@ int main(){
   cout << "Enter your full name to deposite money: ";
   cin >> name;
   cout << endl;
-  
+
+  NewCopy("data.txt", arr, n);
+
   return 0;
 }
