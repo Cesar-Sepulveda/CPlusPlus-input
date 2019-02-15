@@ -9,6 +9,7 @@ struct PERSON{
   float balance;
 };
 
+//------------------------------------------------------------------------------
 void display(PERSON arr[], int n){
   cout << "Name" << "           " << "Balance" << endl;
   cout << "------------------------------" << endl;
@@ -18,10 +19,11 @@ void display(PERSON arr[], int n){
 
 }
 
+//------------------------------------------------------------------------------
 void findRichest(PERSON arr[], int n){
   char richest[20];
   for(int i = 0; i < n -1; ++i){
-    if(arr[i].balance > arr[i+i].balance){
+    if(arr[i].balance > arr[i+1].balance){
       strcpy(richest, arr[i].name);
     }else{ strcpy(richest, arr[i+1].name);}
   }
@@ -29,9 +31,12 @@ void findRichest(PERSON arr[], int n){
   cout << richest << endl;
 }
 
+//------------------------------------------------------------------------------
 void deposit(string name, PERSON arr[], int n){
-  float add;
+  float add = 0;
   int found;
+  Person depo;
+  
   for(int i = 0; i < n; ++i){
     if(strcmp(name.c_str(), arr[i].name) == 0){
       cout << name << ", how much would you like to deposit? ";
@@ -40,10 +45,11 @@ void deposit(string name, PERSON arr[], int n){
       found = i;
     }
   }
-  add += arr[found].balance;
-  cout << "Now your balance is " << add << endl;
+  arr[found].balance = arr[found].balance + add;
+  cout << "Now your balance is " << arr[found].balance << endl;
 }
 
+//------------------------------------------------------------------------------
 void readFile(string filename, PERSON arr[], int n){
   fstream myFile;
   myFile.open(filename);
@@ -56,38 +62,38 @@ void readFile(string filename, PERSON arr[], int n){
   for(int i = 0; i < n; ++i){
     myFile >> str1 >> str2;
     sName = str1 + " " + str2;
-    strcpy(arr[n].name, sName.c_str());
+    strcpy(arr[i].name, sName.c_str());
     myFile >> pay;
-    arr[n].balance = pay;
+    arr[i].balance = pay;
     getline(myFile, space);
   }
   myFile.close();
 }
 
+//------------------------------------------------------------------------------
 int numOfLines(string filename){
   int count = 0;
   string line;
   fstream myFile;
   myFile.open(filename);
-  if(myFile.is_open()){
-    while(!myFile.eof()){
-      getline(myFile,line);
-      ++count;
-      }
-    myFile.close();
+  while(getline(myFile, line)){
+    ++count;
   }
+  myFile.close();
   return count;
 }
 
+//------------------------------------------------------------------------------
 void NewCopy(string filename, PERSON arr[], int n){
   fstream myFile;
   myFile.open(filename);
   for(int i = 0; i < n; ++i){
-    myFile << arr[i].name << arr[i].balance << endl;
+    myFile << arr[i].name << " " <<arr[i].balance << endl;
   }
   myFile.close();
 }
 
+//------------------------------------------------------------------------------
 int main(){
   int n;
   string filename;
@@ -97,14 +103,16 @@ int main(){
   n = numOfLines(filename);
 
   PERSON arr[n];
-  readFile("data.txt", arr, n);
+  readFile(filename, arr, n);
   display(arr, n);
+
   findRichest(arr, n);
   cout << "Enter your full name to deposite money: ";
   cin >> name;
   cout << endl;
+  //deposit(name, arr, n);
 
-  NewCopy("data.txt", arr, n);
+  //NewCopy("data.txt", arr, n);
 
   return 0;
 }
