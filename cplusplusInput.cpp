@@ -35,8 +35,6 @@ void findRichest(PERSON arr[], int n){
 void deposit(string name, PERSON arr[], int n){
   float add = 0;
   int found;
-  Person depo;
-  
   for(int i = 0; i < n; ++i){
     if(strcmp(name.c_str(), arr[i].name) == 0){
       cout << name << ", how much would you like to deposit? ";
