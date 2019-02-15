@@ -96,8 +96,11 @@ int main(){
   int n;
   string filename;
   string name;
+  string name1;
+  string name2;
   cout << "Enter the filename: " << endl;
   cin >> filename;
+  cout << endl;
   n = numOfLines(filename);
 
   PERSON arr[n];
@@ -106,9 +109,10 @@ int main(){
 
   findRichest(arr, n);
   cout << "Enter your full name to deposite money: ";
-  cin >> name;
   cout << endl;
-  //deposit(name, arr, n);
+  cin >> name1 >> name2;
+  name = name1 + " " + name2;
+  deposit(name, arr, n);
 
   //NewCopy("data.txt", arr, n);
 
