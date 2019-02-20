@@ -86,8 +86,10 @@ void NewCopy(string filename, PERSON arr[], int n){
   fstream myFile;
   myFile.open(filename);
   for(int i = 0; i < n; ++i){
-    myFile << arr[i].name << " " <<arr[i].balance << endl;
+    myFile << arr[i].name << " " << arr[i].balance << endl;
   }
+  cout<< "New Copy: " << endl;
+  display(arr, n);
   myFile.close();
 }
 
@@ -114,7 +116,8 @@ int main(){
   name = name1 + " " + name2;
   deposit(name, arr, n);
 
-  //NewCopy("data.txt", arr, n);
+  NewCopy("data.txt", arr, n);
+
 
   return 0;
 }
